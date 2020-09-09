@@ -13,12 +13,8 @@ use std::collections::HashSet;
 fn main() {
     println!("I am a bot! Let us discuss!\n");
     println!("My name is Rosa.\n");
-    println!("I am using a simple regular expressions\nand all power of my mind\nto analise \
+    println!("I am using a simple regular expressions and all power of my mind\nto analise \
             what you will say to me.\n");
-
-//    let _set = RegexSetBuilder::new(&[
-//        r#"[^a-z]*([y]o|[h']?ello|ok|hey|(good[ ])?(morn[gin']{0,3}|afternoon|even[gin']{0,3}))[\s,;:]{1,3}([a-z]{1,20})"#,
-
    
 // use white space insignificant mode (?x) that is why use '\x20' asw hite space
 //
@@ -33,7 +29,6 @@ fn main() {
                 (?P<rosa_name>[a-z]{1,20})"
         ).unwrap();
     }
-
 
     let mut rosa_good_names = HashSet::new();
         rosa_good_names.insert("rose".to_string());
@@ -61,25 +56,20 @@ fn main() {
 // the 'greeter_name' is not used in the version
     let greeter_name = &"";
 
-
-
     let capts = RE.captures(&mut request).unwrap();
     let rosa_name = capts.name("rosa_name").unwrap().as_str();
 
-
-
-     if rosa_curt_names.contains(rosa_name) {
-         println!("Good name\n")
-     } else if rosa_good_names.contains(rosa_name) {
-         println!("Hi {}, How are you ?\n", greeter_name)
-     } else {
-         println!("Please, name me as 'Rosa', I like it\n")
-     }        
+    if rosa_curt_names.contains(rosa_name) {
+        println!("Good name\n")
+    } else if rosa_good_names.contains(rosa_name) {
+        println!("Hi {}, How are you ?\n", greeter_name)
+    } else {
+        println!("Please, name me as 'Rosa', I like it\n")
+    }        
 
     println!("I see you say {} to me!\n", &mut request);
     println!("It is very vise from your side,\nI will think about it a little bit \
             and will reply to you soon.\n");
-
 
 
     let random_number = rand::thread_rng().gen_range(1,6);
@@ -97,7 +87,5 @@ fn main() {
                 your university course in Quantum Mechanics, may be it is a good idea \
                 for you to do it now, you still have some time.\n");
     }      
-
-
 
 }
