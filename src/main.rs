@@ -1,6 +1,12 @@
+#![warn(missing_docs, unused_variables)]
+
 use std::io;
 use rand::Rng;
-
+use regex::RegexSetBuilder;
+use regex::RegexSet;
+use regex::Regex;
+use std::collections::HashSet;
+#[macro_use] extern crate lazy_static;
 
 fn main() {
     println!("I am a bot! Let us discuss!\n");
@@ -8,17 +14,65 @@ fn main() {
     println!("I am using a simple regular expressions\nand all power of my mind\nto analise \
             what you will say to me.\n");
 
+//    let _set = RegexSetBuilder::new(&[
+//        r#"[^a-z]*([y]o|[h']?ello|ok|hey|(good[ ])?(morn[gin']{0,3}|afternoon|even[gin']{0,3}))[\s,;:]{1,3}([a-z]{1,20})"#,
+
+   
+// use white space insignificant mode (?x) that is why use '\x20' asw hite space
+//
+
+    lazy_static! {
+        static ref RE:RegexSet = RegexSetBuilder::new(&[
+            r#"(?x)
+            [^a-z]*
+            ([y]o|[h']?ello|ok|hey|(good[\x20])?(morn[gin']{0,3}
+            |afternoon|even[gin']{0,3}))
+            [\s,;:]{1,3}
+            ([a-z]{1,20})
+            "#,
+        ]).case_insensitive(true)
+            .build()
+            .unwrap();
+    }
+
+    RE.is_match(&"lkglkghjkh");
+
+
+    let mut rosa_good_names = HashSet::new();
+        rosa_good_names.insert("rose".to_string());
+        rosa_good_names.insert("rosa".to_string());
+        rosa_good_names.insert("chatty".to_string());
+        rosa_good_names.insert("chatbot".to_string());
+        rosa_good_names.insert("bot".to_string());
+        rosa_good_names.insert("chatterbot".to_string());
+        rosa_good_names.insert("rosi".to_string());
+
+    let mut rosa_curt_names = HashSet::new();
+        rosa_curt_names.insert("hal".to_string());
+        rosa_curt_names.insert("you".to_string());
+        rosa_curt_names.insert("u".to_string());
+        rosa_curt_names.insert("yu".to_string());
+
     let mut request = String :: new();
-    println!("You may say something like 'Hello' to me: {}.\n", request);
+    println!("You may say something like 'Hello' to me: {}.\n", &mut request);
 
     io::stdin()
         .read_line(&mut request)
         .expect("Something is wrong with reading the line, failed to read it");
 
 
-    println!("I see you say {} to me!", request);
+// the 'greeter_name' is not used in the version
+    let greeter_name = &"";
+
+
+
+
+
+    println!("I see you say {} to me!", &mut request);
     println!("It is very vise from your side,\nI will think about it a little bit \
             and will reply to you soon.\n");
+
+
 
     let random_number = rand::thread_rng().gen_range(1,6);
 
