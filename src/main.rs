@@ -1,5 +1,7 @@
 #![warn(missing_docs, unused_variables)]
 
+extern crate regex;
+
 use std::io;
 use rand::Rng;
 use regex::RegexSetBuilder;
@@ -22,20 +24,15 @@ fn main() {
 //
 
     lazy_static! {
-        static ref RE:RegexSet = RegexSetBuilder::new(&[
-            r#"(?x)
-            [^a-z]*
-            ([y]o|[h']?ello|ok|hey|(good[\x20])?(morn[gin']{0,3}
-            |afternoon|even[gin']{0,3}))
-            [\s,;:]{1,3}
-            ([a-z]{1,20})
-            "#,
-        ]).case_insensitive(true)
-            .build()
-            .unwrap();
+        static ref RE:Regex = Regex::new(
+            r"(?x)(?i)
+                [^a-z]*
+                ([y]o|[h']?ello|ok|hey|(good[\x20])?(morn[gin']{0,3}
+                |afternoon|day|even[gin']{0,3}))
+                [\s,;:]{1,3}
+                (?P<rosa_name>[a-z]{1,20})"
+        ).unwrap();
     }
-
-    RE.is_match(&"lkglkghjkh");
 
 
     let mut rosa_good_names = HashSet::new();
@@ -66,9 +63,20 @@ fn main() {
 
 
 
+    let capts = RE.captures(&mut request).unwrap();
+    let rosa_name = capts.name("rosa_name").unwrap().as_str();
 
 
-    println!("I see you say {} to me!", &mut request);
+
+     if rosa_curt_names.contains(rosa_name) {
+         println!("Good name\n")
+     } else if rosa_good_names.contains(rosa_name) {
+         println!("Hi {}, How are you ?\n", greeter_name)
+     } else {
+         println!("Please, name me as 'Rosa', I like it\n")
+     }        
+
+    println!("I see you say {} to me!\n", &mut request);
     println!("It is very vise from your side,\nI will think about it a little bit \
             and will reply to you soon.\n");
 
