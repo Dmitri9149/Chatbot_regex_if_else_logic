@@ -51,59 +51,61 @@ fn main() {
         rosa_curt_names.insert("u".to_string());
         rosa_curt_names.insert("yu".to_string());
 
-    let mut request = String :: new();
-    println!("You may say something like 'Hello' to me: {}.\n", &mut request);
+    loop {    
 
-    io::stdin()
-        .read_line(&mut request)
-        .expect("Something is wrong with reading the line, failed to read it");
+        let mut request = String :: new();
+        println!("You may say something like 'Hello' to me: {}.\n", &mut request);
 
-
-// the 'greeter_name' is not used in the version
-    let greeter_name = &"";
-
-//    let capts = RE.captures(&mut request).unwrap();
-
-    let capts = RE.captures(&mut request).unwrap();
-    let rosa_name = capts.name("rosa_name").unwrap().as_str();
-
-//    let rosa_name = capts
-//        .name("rosa_name")
-//        .map_or("Where is my name in the greeting ?", |m| m.as_str());
+        io::stdin()
+            .read_line(&mut request)
+            .expect("Something is wrong with reading the line, failed to read it");
 
 
-    println!("Type of 'capts' is {}", type_of(capts));
-    println!("Type of 'rosa_name' is {}", type_of(rosa_name));
+    // the 'greeter_name' is not used in the version
+        let greeter_name = &"";
+
+    //    let capts = RE.captures(&mut request).unwrap();
+
+        let capts = RE.captures(&mut request).unwrap();
+        let rosa_name = capts.name("rosa_name").unwrap().as_str();
+
+    //    let rosa_name = capts
+    //        .name("rosa_name")
+    //        .map_or("Where is my name in the greeting ?", |m| m.as_str());
+
+
+        println!("Type of 'capts' is {}", type_of(capts));
+        println!("Type of 'rosa_name' is {}", type_of(rosa_name));
 
 
 
-    if rosa_curt_names.contains(rosa_name) {
-        println!("Good name\n")
-    } else if rosa_good_names.contains(rosa_name) {
-        println!("Hi {}, How are you ?\n", greeter_name)
-    } else {
-        println!("Please, name me as 'Rosa', I like it\n")
-    }        
+        if rosa_curt_names.contains(rosa_name) {
+            println!("Good name\n")
+        } else if rosa_good_names.contains(rosa_name) {
+            println!("Hi {}, How are you ?\n", greeter_name)
+        } else {
+            println!("Please, name me as 'Rosa', I like it\n")
+        }        
 
-    println!("I see you say {} to me!\n", &mut request);
-    println!("It is very vise from your side,\nI will think about it a little bit \
-            and will reply to you soon.\n");
+        println!("I see you say {} to me!\n", &mut request);
+        println!("It is very vise from your side,\nI will think about it a little bit \
+                and will reply to you soon.\n");
 
 
-    let random_number = rand::thread_rng().gen_range(1,6);
+        let random_number = rand::thread_rng().gen_range(1,6);
 
-    if random_number == 1 {
-        println!("By the way, what is your favourite greeting ? Hey ? Hello ?");
-    } else if random_number == 2 {
-        println!("....hmmm.... to think about it takes a longer time than I expected...");
-    } else if random_number == 3 {
-        println!(".....just a moment....please...");
-    } else if random_number == 4 {
-        println!("By the way, do you think the 'Rosa' is a good name for a bot ?")     
-    } else {
-        println!("OK ! I almoust ready. But if you have something to finilise...like \
-                your university course in Quantum Mechanics, may be it is a good idea \
-                for you to do it now, you still have some time.\n");
-    }      
-
+        if random_number == 1 {
+            println!("By the way, what is your favourite greeting ? Hey ? Hello ?");
+        } else if random_number == 2 {
+            println!("....hmmm.... to think about it takes a longer time than I expected...");
+        } else if random_number == 3 {
+            println!(".....just a moment....please...");
+        } else if random_number == 4 {
+            println!("By the way, do you think the 'Rosa' is a good name for a bot ?")     
+        } else {
+            println!("OK ! I almoust ready. But if you have something to finilise...like \
+                    your university course in Quantum Mechanics, may be it is a good idea \
+                    for you to do it now, you still have some time.\n");
+        }      
+    }
 }
