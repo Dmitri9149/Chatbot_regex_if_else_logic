@@ -2,6 +2,7 @@
 
 extern crate regex;
 
+use std::any::type_name;
 use std::io;
 use rand::Rng;
 use regex::RegexSetBuilder;
@@ -10,14 +11,19 @@ use regex::Regex;
 use std::collections::HashSet;
 #[macro_use] extern crate lazy_static;
 
+fn type_of<T>(_: T) -> &'static str {
+    type_name::<T>()
+}
+
+
 fn main() {
     println!("I am a bot! Let us discuss!\n");
     println!("My name is Rosa.\n");
     println!("I am using a simple regular expressions and all power of my mind\nto analise \
             what you will say to me.\n");
    
-// use white space insignificant mode (?x) that is why use '\x20' asw hite space
-//
+// use white space insignificant mode (?x) that is why use '\x20' as white space
+// in good[\x20]
 
     lazy_static! {
         static ref RE:Regex = Regex::new(
@@ -56,8 +62,20 @@ fn main() {
 // the 'greeter_name' is not used in the version
     let greeter_name = &"";
 
+//    let capts = RE.captures(&mut request).unwrap();
+
     let capts = RE.captures(&mut request).unwrap();
     let rosa_name = capts.name("rosa_name").unwrap().as_str();
+
+//    let rosa_name = capts
+//        .name("rosa_name")
+//        .map_or("Where is my name in the greeting ?", |m| m.as_str());
+
+
+    println!("Type of 'capts' is {}", type_of(capts));
+    println!("Type of 'rosa_name' is {}", type_of(rosa_name));
+
+
 
     if rosa_curt_names.contains(rosa_name) {
         println!("Good name\n")
