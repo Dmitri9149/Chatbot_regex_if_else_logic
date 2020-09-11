@@ -1,3 +1,6 @@
+// some ideas are taken from the book 
+// https://www.manning.com/books/natural-language-processing-in-action
+
 #![warn(missing_docs, unused_variables)]
 
 extern crate regex;
@@ -5,8 +8,6 @@ extern crate regex;
 use std::any::type_name;
 use std::io;
 use rand::Rng;
-use regex::RegexSetBuilder;
-use regex::RegexSet;
 use regex::Regex;
 use std::collections::HashSet;
 #[macro_use] extern crate lazy_static;
@@ -64,14 +65,9 @@ fn main() {
     // the 'greeter_name' is not used in the version
         let greeter_name = &"";
 
-    //    let capts = RE.captures(&mut request).unwrap();
-
         let capts = RE.captures(&mut request).unwrap();
         let rosa_name = capts.name("rosa_name").unwrap().as_str();
 
-    //    let rosa_name = capts
-    //        .name("rosa_name")
-    //        .map_or("Where is my name in the greeting ?", |m| m.as_str());
 
 
         println!("Type of 'capts' is {}", type_of(capts));
